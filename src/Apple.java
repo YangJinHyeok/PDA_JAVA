@@ -1,5 +1,5 @@
 public class Apple implements Phone {
-    private String brand;
+    private final String brand;
 
     public Apple() {
         this.brand = "애플폰";
