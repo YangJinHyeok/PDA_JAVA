@@ -1,3 +1,5 @@
+package user;
+
 public class UserService {
     private UserDAO dao;
     private User loggedInUser;
@@ -24,10 +26,8 @@ public class UserService {
 
     public boolean update(User user, String newId, String newPw, String newName) {
         boolean result = dao.update(user, newId, newPw, newName);
-        if (result && loggedInUser != null && loggedInUser.getId().equals(user.getId())) {
-            loggedInUser.setId(newId);
-            loggedInUser.setPw(newPw);
-            loggedInUser.setName(newName);
+        if (result) {
+            loggedInUser = dao.login(newId, newPw); // 수정된 정보를 반영하여 다시 로그인
         }
         return result;
     }
@@ -40,9 +40,5 @@ public class UserService {
             return true;
         }
         return false;
-    }
-
-    public User getLoggedInUser() {
-        return loggedInUser;
     }
 }
